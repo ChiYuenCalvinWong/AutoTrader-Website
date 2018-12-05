@@ -1,0 +1,57 @@
+{% extends 'dbase.html' %}
+
+{% block content %}
+    <H1>Car List</H1>
+    <div class="table-responsive">
+        <table class="table" id="flights">
+            <thead>
+                <tr>
+                    <th scope="col">Flight</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Check in</th>
+                    <th scope="col">departure</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for flight in flights %}
+                <tr id={{ flight.id }}>
+                    <th scope="row">{{ flight.flight }}</th>
+                    <td> {{flight.destination }} </td>
+                    <td> {{ flight.check_in }} </td>
+                    <td> {{ flight.departure }} </td>
+                    <td> {{ flight.status }} </td>
+                    <td> <a href="/buy/{{ flight.id }}">Buy</a> </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <BR>
+    <H1>Purchase History</H1>
+    <div class="table-responsive">
+        <table class="table" id="bought">
+            <thead>
+                <tr>
+                    <th scope="col">Flight</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Check in</th>
+                    <th scope="col">departure</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for car in bought %}
+                <tr id={{ data.id }}>
+                    <th scope="row">{{ data.flight }}</th>
+                    <td> {{data.destination }} </td>
+                    <td> {{ data.check_in }} </td>
+                    <td> {{ data.departure }} </td>
+                    <td> {{ data.status }} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
