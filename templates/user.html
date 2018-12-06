@@ -3,26 +3,26 @@
 {% block content %}
     <H1>Car List</H1>
     <div class="table-responsive">
-        <table class="table" id="flights">
+        <table class="table" id="autos">
             <thead>
                 <tr>
-                    <th scope="col">Flight</th>
-                    <th scope="col">Destination</th>
-                    <th scope="col">Check in</th>
-                    <th scope="col">departure</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">VIN</th>
+                    <th scope="col">Price</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-            {% for flight in flights %}
-                <tr id={{ flight.id }}>
-                    <th scope="row">{{ flight.flight }}</th>
-                    <td> {{flight.destination }} </td>
-                    <td> {{ flight.check_in }} </td>
-                    <td> {{ flight.departure }} </td>
-                    <td> {{ flight.status }} </td>
-                    <td> <a href="/buy/{{ flight.id }}">Buy</a> </td>
+            {% for auto in autos %}
+                <tr id={{ auto.id }}>
+                    <th scope="row">{{ auto.status }}</th>
+                    <td> {{auto.year }} </td>
+                    <td> {{ auto.model }} </td>
+                    <td> {{ auto.vin }} </td>
+                    <td> {{ auto.price }} </td>
+                    <td> <a href="/buy/{{ auto.id }}">Buy</a> </td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -34,11 +34,11 @@
         <table class="table" id="bought">
             <thead>
                 <tr>
-                    <th scope="col">Flight</th>
-                    <th scope="col">Destination</th>
-                    <th scope="col">Check in</th>
-                    <th scope="col">departure</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">VIN</th>
+                    <th scope="col">Price</th>
                 </tr>
             </thead>
             <tbody>

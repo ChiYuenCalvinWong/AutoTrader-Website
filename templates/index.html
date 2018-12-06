@@ -3,24 +3,24 @@
 {% block content %}
     <div class="chat-container" style="overflow: auto; max-height: 80vh">
         <div class="table-responsive">
-            <table class="table" id="flights">
+            <table class="table" id="autos">
                 <thead>
                     <tr>
-                        <th scope="col">Flight</th>
-                        <th scope="col">Destination</th>
-                        <th scope="col">Check in</th>
-                        <th scope="col">departure</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">VIN</th>
+                        <th scope="col">Price</th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for flight in flights %}
-                    <tr id={{ flight.id }}>
-                        <th scope="row">{{ flight.flight }}</th>
-                        <td> {{flight.destination }} </td>
-                        <td> {{ flight.check_in }} </td>
-                        <td> {{ flight.departure }} </td>
-                        <td> {{ flight.status }} </td>
+                {% for auto in autos %}
+                    <tr id={{ auto.id }}>
+                        <th scope="row">{{ auto.status }}</th>
+                        <td> {{auto.year }} </td>
+                        <td> {{ auto.model }} </td>
+                        <td> {{ auto.vin }} </td>
+                        <td> {{ auto.price }} </td>
                     </tr>
                 {% endfor %}
                 </tbody>

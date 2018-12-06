@@ -1,31 +1,21 @@
-{% extends 'dbase.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
     <form method="POST" id="target"> 
         <div class="form-group">
-            <input type="text" class="form-control" name="flight" value="{{ data.flight }}">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" name="destination" value="{{ data.destination }}">
-        </div>
-        <div class="form-group">
-            <input 
-               type="text" 
-               class="form-control datetime"
-               name="check_in" 
-               value="{{ data.check_in }}"
-            >
-        </div>
-        <div class="form-group">
-            <input 
-              type="text" 
-              class="form-control datetime" 
-              name="departure" 
-              value="{{ data.departure }}"
-            >
-        </div>
-        <div class="form-group">
             <input type="text" class="form-control" name="status" value="{{ data.status }}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="year" value="{{ data.year }}">
+        </div>
+         <div class="form-group">
+            <input type="text" class="form-control" name="model" value="{{ data.model }}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="vin" value="{{ data.vin }}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="price" value="{{ data.price }}">
         </div>
 
         <button type="submit" class="btn btn-block btn-primary">Update</button>
