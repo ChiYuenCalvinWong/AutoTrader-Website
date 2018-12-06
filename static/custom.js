@@ -22,6 +22,7 @@ const pusher = new Pusher('<PUSHER_KEY>', {
 });
 
 var channel = pusher.subscribe('table');
+var channel2 = pusher.subscribe('boughts');
 
 channel.bind('new-record', (data) => {
 
@@ -52,3 +53,4 @@ channel.bind('update-record', (data) => {
     `)
 
  });
+

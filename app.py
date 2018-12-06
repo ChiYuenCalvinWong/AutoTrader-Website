@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template, redirect, flash
 import pusher
 from database import db_session
-from models import Auto
+from models import Auto, Bought
 from datetime import datetime
 from forms import  RegistrationForm, LoginForm
 import os
@@ -55,8 +55,14 @@ def backend():
         price = request.form["price"]
 
         new_auto = Auto(status, year, vin, model, price)
-        db_session.add(new_auto)
-        db_session.commit()
+
+
+        row_count = Auto.query.count()
+        if row_count < 5:
+            db_session.add(new_auto)
+            db_session.commit()
+        else:
+            flash("Not Enough Space")
 
         data = {
             "id": new_auto.id,
@@ -72,6 +78,7 @@ def backend():
     else:
         autos = Auto.query.all()
         return render_template('backend.html', autos=autos)
+
 
 @app.route('/edit/<int:id>', methods=["POST", "GET"])
 def update_record(id):
@@ -107,7 +114,7 @@ def update_record(id):
         new_auto.model = new_auto.model
         new_auto.vin = new_auto.vin
 
-        return render_template('update_flight.html', data=new_auto)
+        return render_template('update_car.html', data=new_auto)
 
 @app.route('/delete/<int:id>', methods=["POST", "GET"])
 def delete_record(id):
@@ -118,14 +125,27 @@ def delete_record(id):
 
 @app.route('/user', methods=["POST", "GET"])
 def user():
-    if request.method == "POST":
+    autos = Auto.query.all()
+    boughts = Bought.query.all()
+    return render_template('user.html', autos=autos, boughts=boughts)
+
+@app.route('/buy/<int:id>', methods=["POST", "GET"])
+def buy_car(id):
+    if request.method =="POST":
         status = request.form["status"]
         year = request.form["year"]
         model = request.form["model"]
         vin = request.form["vin"]
         price = request.form["price"]
 
-        new_auto = Auto(status, year, vin, model, price)
+        buy_car = Auto.query.get(id)
+        buy_car.status = status
+        buy_car.year = year
+        buy_car.model = model
+        buy_car.vin = vin
+        buy_car.price = price
+
+        new_auto = Bought(status, year, vin, model, price)
         db_session.add(new_auto)
         db_session.commit()
 
@@ -137,17 +157,11 @@ def user():
             "vin": vin,
             "price": price}
 
-        pusher_client.trigger('table', 'new-record', {'data': data})
-
+        pusher_client.trigger('boughts', 'new-bought', {'data': data})
         return redirect("/user", code=302)
     else:
-        autos = Auto.query.all()
-        return render_template('user.html', autos=autos)
-
-@app.route('/buy/<int:id>', methods=["POST", "GET"])
-def buy_car(id):
-
-    return redirect('/user')
+        boughts = Bought.query.all()
+        return render_template('user.html', boughts=boughts)
 
 # run Flask app
 if __name__ == "__main__":
